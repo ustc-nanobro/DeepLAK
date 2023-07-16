@@ -48,7 +48,7 @@ class GaussianEmbedLayer(nn.Module):
         
     def forward(self, x):
         x_gauss = self.embed(x)
-        #print(x_gauss)
+        
         #print(x_gauss.size())
         x_gauss = einops.rearrange(x_gauss, 'b n f g -> b (n f g)')  # Reshape to (batch_size, num_points * num_feats * num_gauss)
         x_gauss = self.mlp(x_gauss)
