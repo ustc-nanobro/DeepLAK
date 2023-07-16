@@ -7,7 +7,7 @@ num_gauss = 4
 x_min = 0
 x_max = 1.0
 sigma = 0.5
-mlp_hid_dim = [64,128]
+mlp_hid_dim = [64,128,256]
 
 def test_gaussian_embed_layer():
    
