@@ -1,10 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
 import einops
 class GaussianEmbedLayer(nn.Module):
     def __init__(self, num_gauss, x_min, x_max, sigma, num_feats, mlp_hid_dim):
@@ -48,9 +44,7 @@ class GaussianEmbedLayer(nn.Module):
         
     def forward(self, x):
         x_gauss = self.embed(x)
-        
-        #print(x_gauss.size())
-        x_gauss = einops.rearrange(x_gauss, 'b n f g -> b (n f g)')  # Reshape to (batch_size, num_points * num_feats * num_gauss)
+        x_gauss = einops.rearrange(x_gauss, 'b n f g -> b (n f g)')  
         x_gauss = self.mlp(x_gauss)
         
         
