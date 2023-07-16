@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import einops
+
 class GaussianEmbedLayer(nn.Module):
     def __init__(self, num_gauss, x_min, x_max, sigma, num_feats, mlp_hid_dim):
         super().__init__()
@@ -39,7 +40,6 @@ class GaussianEmbedLayer(nn.Module):
         
         # 将形状重新调整为 (batch_size, num_points, num_feats, num_gauss)
         x_gauss = x_gauss.view(batch_size, num_points, num_feats, self.num_gauss)
-        #x_gauss = einops.rearrange(x_gauss, '(b n) f g -> b n f g')
         return x_gauss
         
     def forward(self, x):
