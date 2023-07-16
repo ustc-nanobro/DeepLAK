@@ -32,15 +32,15 @@ class GaussianEmbedLayer(nn.Module):
         batch_size, num_points, num_feats = x.size()
 
         #将输入重塑为 (batch_size * num_points, num_feats) 的形状
-        #x = x.view(-1, num_feats)
+        
         x = einops.rearrange(x, 'b n f -> (b n) f')
-        #print(x)
+        
         # 对输入向量的每个元素应用高斯函数
         means = torch.linspace(self.x_min, self.x_max, self.num_gauss).unsqueeze(0)  # (1, num_gauss)
-        #print(means)
+       
         #x_gauss = self.gaussian(x, means)
         x_gauss = self.gaussian(x.unsqueeze(2), means)  # (batch_size * num_points, num_feats, num_gauss)
-        #print(x_gauss)
+        
         # 将形状重新调整为 (batch_size, num_points, num_feats, num_gauss)
         x_gauss = x_gauss.view(batch_size, num_points, num_feats, self.num_gauss)
         #x_gauss = einops.rearrange(x_gauss, '(b n) f g -> b n f g')
